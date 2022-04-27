@@ -53,7 +53,7 @@ The following sample defines a new Artifact Type of **signature**, using `signat
 
 ## Discovering Artifact References
 
-The ORAS Artifacts Specification defines a [referrers API][oras-artifacts-referrers] for discovering references to a `subject` artifact. In the above case, oras discover can show the the list of references to the container image.
+The ORAS Artifacts Specification defines a [referrers API][oras-artifacts-referrers] for discovering references to a `subject` artifact. In the above case, oras discover can show the list of references to the container image.
 
 - Using `oras discover`, view the graph of artifacts now stored in the registry
 
@@ -91,7 +91,7 @@ The ORAS Artifacts specification enables deep graphs, enabling signed SBoMs and 
                   --artifact-type sbom/example \
                   $IMAGE | jq -r ".references[0].digest")
 
-  echo '{"artifact": "'$REGISTRY/$REPO/$SBOM_DIGEST'", "signature": "pat hancock"}' > sbom-signature.json
+  echo '{"artifact": "'$REGISTRY/$REPO@$SBOM_DIGEST'", "signature": "pat hancock"}' > sbom-signature.json
 
   oras push $REGISTRY/$REPO \
     --artifact-type 'signature/example' \
@@ -131,7 +131,7 @@ The ORAS Artifacts specification enables deep graphs, enabling signed SBoMs and 
   # Pull the SBOM into the download directory
   oras pull -a -o ./download $REGISTRY/$REPO@$SBOM_DIGEST
 
-  # View the $IMAGE SBOM
+  # View the SBOM
   cat ./download/sbom.json | jq
   ```
 
@@ -157,7 +157,7 @@ Continue with [Pushing Reference Types](#pushing-reference-types)
 
 ### Azure Container Registry
 
-The Azure Container Registry supports [ORAS Artifacts][oras-artifacts]. To enable the `oras` cli to `push`, `discover`, `pull` with ACR, configure USER_NAME and passwords using [ACR Repository Scoped Tokens][acr-tokens]. Other [authentication options](https://aka.ms/acr/authentication) are also available.
+The Azure Container Registry supports [ORAS Artifacts][oras-artifacts]. To enable the `oras` cli to `push`, `discover`, `pull` with ACR, configure username and passwords using [ACR Repository Scoped Tokens][acr-tokens]. Other [authentication options](https://aka.ms/acr/authentication) are also available.
 
 ```bash
 ACR_NAME=myregistry
